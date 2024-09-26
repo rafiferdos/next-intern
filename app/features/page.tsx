@@ -4,7 +4,7 @@ const page = () => {
     return (
         <div>
             <h1>Features Page</h1>
-            <Button color="danger">View featues</Button>
+            <Button color="secondary" variant="flat">View featues</Button>
         </div>
     );
 };
