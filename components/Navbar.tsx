@@ -1,6 +1,7 @@
 "use client";
 
 import MainLogo from "@/public/MainLogo";
+import { Button } from "@nextui-org/button";
 import {
   Navbar,
   NavbarBrand,
@@ -19,8 +20,8 @@ const Nav = () => {
 
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen}>
-      <NavbarContent>
+    <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="xl" isBordered>
+      <NavbarContent justify="center">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden"
@@ -43,6 +44,16 @@ const Nav = () => {
           <Link color="foreground" href="/contact_us">
             Contact Us
           </Link>
+        </NavbarItem>
+      </NavbarContent>
+      <NavbarContent justify="end">
+        <NavbarItem className="hidden lg:flex">
+          <Link href="#">Login</Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Button as={Link} color="primary" href="/login" variant="flat">
+            Sign Up
+          </Button>
         </NavbarItem>
       </NavbarContent>
     </Navbar>
