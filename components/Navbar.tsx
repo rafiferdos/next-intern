@@ -16,6 +16,8 @@ const Nav = () => {
 
   const navLinks = ["Profile", "Dashboard", "Log Out"];
 
+
+
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
@@ -28,8 +30,18 @@ const Nav = () => {
           <p className="font-bold text-inherit">Next Intern</p>
         </NavbarBrand>
         <NavbarItem>
+          <Link color="foreground" href="/interns">
+            Interns
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
           <Link color="foreground" href="/features">
             Features
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="/contact_us">
+            Contact Us
           </Link>
         </NavbarItem>
       </NavbarContent>
