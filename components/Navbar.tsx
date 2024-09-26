@@ -5,8 +5,10 @@ import {
   Navbar,
   NavbarBrand,
   NavbarContent,
+  NavbarItem,
   NavbarMenuToggle,
 } from "@nextui-org/navbar";
+import Link from "next/link";
 import { useState } from "react";
 
 const Nav = () => {
@@ -25,6 +27,11 @@ const Nav = () => {
           <MainLogo />
           <p className="font-bold text-inherit">Next Intern</p>
         </NavbarBrand>
+        <NavbarItem>
+          <Link color="foreground" href="/features">
+            Features
+          </Link>
+        </NavbarItem>
       </NavbarContent>
     </Navbar>
   );
