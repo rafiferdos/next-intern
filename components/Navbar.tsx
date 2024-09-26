@@ -2,6 +2,7 @@
 
 import { Navbar, NavbarBrand, NavbarContent, NavbarMenuToggle } from "@nextui-org/navbar";
 import { useState } from "react";
+import MainLogo from '@/app/logo.svg'
 
 const Nav = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
