@@ -17,7 +17,7 @@ import { useState } from "react";
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const menuItems = ["Profile", "Dashboard", "Log Out"];
+  const menuItems = ["Interns", "Features", "Contact Us"];
 
 
 
@@ -70,8 +70,7 @@ const Nav = () => {
                 index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
               }
               className="w-full"
-              href="#"
-              size="lg"
+              href={`/${item.toLowerCase().replace(" ", "_")}`}
             >
               {item}
             </Link>
