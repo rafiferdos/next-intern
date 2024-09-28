@@ -32,6 +32,8 @@ const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuItems = ["Interns", "Features", "Contact Us"];
 
+  console.log(theme);
+
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="xl" isBordered>
       <NavbarContent>
@@ -62,34 +64,39 @@ const Nav = () => {
         </NavbarItem>
       </NavbarContent>
 
-      {!session ? (
-        <NavbarContent justify="end">
-          <NavbarItem>
-            <Switch
-              defaultSelected
-              size="lg"
-              color="success"
-              startContent={<SunIcon />}
-              endContent={<MoonIcon />}
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            >
-              Dark mode
-            </Switch>
-          </NavbarItem>
-          <NavbarItem>
-            <Button as={Link} color="success" href="login" variant="light">
-              Sign In
-            </Button>
-          </NavbarItem>
-          <NavbarItem className="hidden lg:flex">
-            <Button as={Link} color="secondary" href="/register" variant="flat">
-              Sign Up
-            </Button>
-          </NavbarItem>
-        </NavbarContent>
-      ) : (
-        ""
-      )}
+      <NavbarContent justify="end">
+        <NavbarItem>
+          <Switch
+            defaultSelected
+            size="lg"
+            color="success"
+            startContent={<SunIcon />}
+            endContent={<MoonIcon />}
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          />
+        </NavbarItem>
+        {!session ? (
+          <>
+            <NavbarItem>
+              <Button as={Link} color="success" href="login" variant="light">
+                Sign In
+              </Button>
+            </NavbarItem>
+            <NavbarItem className="hidden lg:flex">
+              <Button
+                as={Link}
+                color="secondary"
+                href="/register"
+                variant="flat"
+              >
+                Sign Up
+              </Button>
+            </NavbarItem>
+          </>
+        ) : (
+          ""
+        )}
+      </NavbarContent>
 
       {/* Menu portion */}
       <NavbarMenu>

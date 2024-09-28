@@ -34,7 +34,7 @@ export default function RootLayout({
       >
         <SessionWrapper>
           <Providers>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <ThemeProvider attribute="class" defaultTheme="dark">
               <Nav />
               <div className="mx-auto max-w-7xl w-11/12">{children}</div>
             </ThemeProvider>
