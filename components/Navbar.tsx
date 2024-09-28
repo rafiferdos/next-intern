@@ -32,8 +32,6 @@ const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuItems = ["Interns", "Features", "Contact Us"];
 
-  console.log(theme);
-
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme || "light");
   }, [theme]);
@@ -45,7 +43,7 @@ const Nav = () => {
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden"
         />
-        <NavbarBrand>
+        <NavbarBrand as={Link} href={'/'}>
           <MainLogo />
           <p className="font-bold text-inherit">Next Intern</p>
         </NavbarBrand>
