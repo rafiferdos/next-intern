@@ -4,7 +4,6 @@ import "./globals.css";
 import Nav from "@/components/Navbar";
 import SessionWrapper from "@/components/SessionWrapper";
 import { Providers } from "./providers";
-import { ThemeProvider } from "next-themes";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,10 +33,8 @@ export default function RootLayout({
       >
         <SessionWrapper>
           <Providers>
-            <ThemeProvider attribute="class" defaultTheme="dark">
               <Nav />
               <div className="mx-auto max-w-7xl w-11/12">{children}</div>
-            </ThemeProvider>
           </Providers>
         </SessionWrapper>
       </body>

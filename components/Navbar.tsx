@@ -21,7 +21,7 @@ import {
 import { Switch } from "@nextui-org/switch";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SunIcon } from "./SunIcon";
 import { MoonIcon } from "./MoonIcon";
 import { useTheme } from "next-themes";
@@ -33,6 +33,10 @@ const Nav = () => {
   const menuItems = ["Interns", "Features", "Contact Us"];
 
   console.log(theme);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme || "light");
+  }, [theme]);
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="xl" isBordered>
@@ -93,9 +97,7 @@ const Nav = () => {
               </Button>
             </NavbarItem>
           </>
-        ) : (
-          ""
-        )}
+        ) : null}
       </NavbarContent>
 
       {/* Menu portion */}
