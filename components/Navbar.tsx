@@ -1,7 +1,9 @@
 "use client";
 
 import MainLogo from "@/public/MainLogo";
+import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
 import {
   Navbar,
   NavbarBrand,
