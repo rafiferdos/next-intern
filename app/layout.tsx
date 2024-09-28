@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Nav from "@/components/Navbar";
 import SessionWrapper from "@/components/SessionWrapper";
-import { NextUIProvider } from "@nextui-org/system";
+import { Providers } from "./providers";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,14 +29,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <SessionWrapper>
-        <NextUIProvider>
+        <Providers>
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
           >
             <Nav />
             <div className="mx-auto max-w-7xl w-11/12">{children}</div>
           </body>
-        </NextUIProvider>
+        </Providers>
       </SessionWrapper>
     </html>
   );
