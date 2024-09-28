@@ -52,7 +52,7 @@ const Nav = () => {
           </Link>
         </NavbarItem>
       </NavbarContent>
-      <NavbarContent justify="end">
+      {/* <NavbarContent justify="end">
         <NavbarItem>
           <Button as={Link} color='success' href="login" variant="light">
             Sign In
@@ -63,7 +63,9 @@ const Nav = () => {
             Sign Up
           </Button>
         </NavbarItem>
-      </NavbarContent>
+      </NavbarContent> */}
+
+      {/* Menu portion */}
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
@@ -79,6 +81,8 @@ const Nav = () => {
           </NavbarMenuItem>
         ))}
       </NavbarMenu>
+
+      {/* End portion */}
       <NavbarContent as="div" justify="end">
         <Dropdown placement="bottom-end">
           <DropdownTrigger>
