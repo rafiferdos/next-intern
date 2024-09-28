@@ -24,11 +24,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { SunIcon } from "./SunIcon";
 import { MoonIcon } from "./MoonIcon";
-
+import { useTheme } from "next-themes";
 
 const Nav = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
   const { data: session } = useSession();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuItems = ["Interns", "Features", "Contact Us"];
 
   return (
@@ -70,6 +71,7 @@ const Nav = () => {
               color="success"
               startContent={<SunIcon />}
               endContent={<MoonIcon />}
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             >
               Dark mode
             </Switch>
