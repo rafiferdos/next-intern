@@ -3,7 +3,12 @@
 import MainLogo from "@/public/MainLogo";
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@nextui-org/dropdown";
 import {
   Navbar,
   NavbarBrand,
@@ -13,15 +18,14 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@nextui-org/navbar";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const { data: session } = useSession();
   const menuItems = ["Interns", "Features", "Contact Us"];
-
-
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="xl" isBordered>
@@ -34,8 +38,8 @@ const Nav = () => {
           <MainLogo />
           <p className="font-bold text-inherit">Next Intern</p>
         </NavbarBrand>
-        </NavbarContent>
-        <NavbarContent className="hidden sm:flex gap-4" justify="center">
+      </NavbarContent>
+      <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
           <Link color="foreground" href="/interns">
             Interns
@@ -52,18 +56,23 @@ const Nav = () => {
           </Link>
         </NavbarItem>
       </NavbarContent>
-      {/* <NavbarContent justify="end">
-        <NavbarItem>
-          <Button as={Link} color='success' href="login" variant="light">
-            Sign In
-          </Button>
-        </NavbarItem>
-        <NavbarItem className="hidden lg:flex">
-          <Button as={Link} color="secondary" href="/register" variant="flat">
-            Sign Up
-          </Button>
-        </NavbarItem>
-      </NavbarContent> */}
+
+      {!session ? (
+        <NavbarContent justify="end">
+          <NavbarItem>
+            <Button as={Link} color="success" href="login" variant="light">
+              Sign In
+            </Button>
+          </NavbarItem>
+          <NavbarItem className="hidden lg:flex">
+            <Button as={Link} color="secondary" href="/register" variant="flat">
+              Sign Up
+            </Button>
+          </NavbarItem>
+        </NavbarContent>
+      ) : (
+        ""
+      )}
 
       {/* Menu portion */}
       <NavbarMenu>
@@ -71,7 +80,11 @@ const Nav = () => {
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link
               color={
-                index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
+                index === 2
+                  ? "primary"
+                  : index === menuItems.length - 1
+                  ? "danger"
+                  : "foreground"
               }
               className="w-full"
               href={`/${item.toLowerCase().replace(" ", "_")}`}
@@ -83,6 +96,9 @@ const Nav = () => {
       </NavbarMenu>
 
       {/* End portion */}
+      {
+        session && 
+
       <NavbarContent as="div" justify="end">
         <Dropdown placement="bottom-end">
           <DropdownTrigger>
@@ -113,6 +129,7 @@ const Nav = () => {
           </DropdownMenu>
         </Dropdown>
       </NavbarContent>
+      }
     </Navbar>
   );
 };
