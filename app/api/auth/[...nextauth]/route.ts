@@ -1,35 +1,38 @@
-// app/api/auth/[...nextauth]/route.ts
+import { EmailProvider } from './../../../../node_modules/next-auth/src/providers/email';
+import NextAuth from "next-auth"
+import Email from "next-auth/providers/email"
+import Facebook from "next-auth/providers/facebook"
+import GithubProvider from "next-auth/providers/github"
+import Google from "next-auth/providers/google"
 
-import NextAuth from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-import GithubProvider from "next-auth/providers/github";
-// You can add more providers like Facebook, Twitter, etc.
-
-const handler = NextAuth({
+export const authOptions = {
+  // Configure one or more authentication providers
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-    }),
     GithubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID || "",
-      clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
     }),
+    GoogleProvider({
+        clientId: process.env.GOOGLE_ID,
+        clientSecret: process.env.GOOGLE_SECRET,
+    }),
+    FacebookProvider({
+        clientId: process.env.FACEBOOK_ID,
+        clientSecret: process.env.FACEBOOK_SECRET,
+    }),
+    EmailProvider({
+        server: {
+            host: process.env.EMAIL_SERVER_HOST,
+            port: process.env.EMAIL_SERVER_PORT,
+            auth: {
+                user: process.env.EMAIL_SERVER_USER,
+                pass: process.env.EMAIL_SERVER_PASSWORD,
+            },
+        },
+        from: process.env.EMAIL_FROM,
+    })
+    // ...add more providers here
   ],
-  pages: {
-    signIn: "/auth/signin", // Customize sign-in page if needed
-  },
-  callbacks: {
-    async session({ session, token, user }) {
-      // You can add extra session logic here
-      return session;
-    },
-    async jwt({ token, account, profile }) {
-      // Additional logic for JSON Web Tokens (JWT)
-      return token;
-    },
-  },
-  secret: process.env.NEXTAUTH_SECRET, // Ensure you set this in your .env file
-});
+}
 
-export { handler as GET, handler as POST };
+export default NextAuth(authOptions)
