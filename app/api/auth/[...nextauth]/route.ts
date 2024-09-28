@@ -1,24 +1,6 @@
-import { GoogleProvider } from 'next-auth/providers/google';
-import { EmailProvider } from './../../../../node_modules/next-auth/src/providers/email';
-import NextAuth from "next-auth"
-import GithubProvider from "next-auth/providers/github"
+import { authOptions } from './../../../../lib/authOptions';
+import NextAuth from "next-auth";
 
+const handler = NextAuth(authOptions)
 
-if (!process.env.GITHUB_ID || !process.env.GITHUB_SECRET) {
-    throw new Error("Missing GITHUB_ID or GITHUB_SECRET environment variables");
-}
-
-const handler = NextAuth({
-    providers: [
-        GithubProvider({
-            clientId: process.env.GITHUB_ID as string,
-            clientSecret: process.env.GITHUB_SECRET as string
-        }),
-        GoogleProvider({
-            clientId: process.env.GOOGLE_ID as string,
-            clientSecret: process.env.GOOGLE_SECRET as string
-        })
-    ]
-});
-
-export {handler as GET, handler as POST}
+export { handler  as GET, handler as POST }
