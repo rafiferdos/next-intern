@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Nav from "@/components/Navbar";
-import { SessionProvider } from "next-auth/react";
+import SessionWrapper from "@/components/SessionWrapper";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,14 +27,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <SessionProvider session={pageProps.session}>
+      <SessionWrapper>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
         >
           <Nav />
           <div className="mx-auto max-w-7xl w-11/12">{children}</div>
         </body>
-      </SessionProvider>
+      </SessionWrapper>
     </html>
   );
 }
