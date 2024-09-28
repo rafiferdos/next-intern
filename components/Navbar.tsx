@@ -22,6 +22,8 @@ import { Switch } from "@nextui-org/switch";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
+import { SunIcon } from "./SunIcon";
+import { MoonIcon } from "./MoonIcon";
 
 
 const Nav = () => {
