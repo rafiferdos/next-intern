@@ -2,6 +2,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
 model Applicant {
   id        Int      @id @default(autoincrement())
   name      String
@@ -10,11 +15,6 @@ model Applicant {
   appliedAt DateTime @default(now()) // Date and time when the application was submitted
   postId    Int
   post      Post     @relation(fields: [postId], references: [id])
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model User {
