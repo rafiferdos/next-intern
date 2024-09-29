@@ -34,7 +34,7 @@ export default function RootLayout({
         <SessionWrapper>
           <Providers>
             <Nav />
-            <div className="mx-auto max-w-7xl w-11/12">{children}</div>
+            <div className="mx-auto max-w-7xl w-11/12 my-8 md:my-16 lg:my-20 2xl:my-24">{children}</div>
           </Providers>
         </SessionWrapper>
       </body>
