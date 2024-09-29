@@ -4,10 +4,10 @@ let prisma: PrismaClient
 
 // Check if we are in development mode (to avoid creating multiple instances)
 if (process.env.NODE_ENV === 'development') {
-  if (!globalThis.prisma) {
-    globalThis.prisma = new PrismaClient()
+  if (!global.prisma) {
+    global.prisma = new PrismaClient()
   }
-  prisma = globalThis.prisma
+  prisma = global.prisma
 } else {
   prisma = new PrismaClient()
 }
