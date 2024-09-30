@@ -1,6 +1,6 @@
 "use client"
 
-import { fetchAllJobs } from "@/lib/fetchAllJobs";
+import { fetchAllJobs } from "@/lib/fetchAllPosts";
 import { useQuery } from "@tanstack/react-query";
 import {Spinner} from "@nextui-org/spinner";
 
