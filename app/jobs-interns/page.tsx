@@ -1,6 +1,6 @@
 "use client"
 
-import { fetchAllJobs } from "@/lib/fetchAllPosts";
+import { fetchAllPosts } from "@/lib/fetchAllPosts";
 import { useQuery } from "@tanstack/react-query";
 import {Spinner} from "@nextui-org/spinner";
 
@@ -13,7 +13,7 @@ interface Job {
 const JobsInterns = () => {
     const {data, error, isLoading} = useQuery<Job[]>({
         queryKey: ["jobs-interns"],
-        queryFn: fetchAllJobs,
+        queryFn: fetchAllPosts,
     })
 
     if (isLoading) return <div className="flex items-center justify-center gap-4"><Spinner color="success" /></div>
