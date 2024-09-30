@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 
 import MainLogo from "@/public/MainLogo";
 import { Avatar } from "@nextui-org/avatar";
@@ -48,7 +49,7 @@ const Nav = () => {
           <p className="font-bold text-inherit">Next Intern</p>
         </NavbarBrand>
       </NavbarContent>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+      <NavbarContent className="hidden gap-4 sm:flex" justify="center">
         <NavbarItem>
           <Link color="foreground" href="/jobs-interns">
             Interns
@@ -135,7 +136,7 @@ const Nav = () => {
               />
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
-              <DropdownItem key="profile" className="h-14 gap-2">
+              <DropdownItem key="profile" className="gap-2 h-14">
                 <p className="font-semibold">Signed in as</p>
                 <p className="font-semibold">zoey@example.com</p>
               </DropdownItem>
