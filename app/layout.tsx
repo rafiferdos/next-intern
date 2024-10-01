@@ -29,12 +29,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen text-foreground bg-background`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-[calc(100vh-65px)] text-foreground bg-background`}
       >
         <SessionWrapper>
           <Providers>
             <Nav />
-            <div className="mx-auto max-w-7xl w-11/12 my-8 md:my-16 lg:my-20 2xl:my-24">{children}</div>
+            <div className="mx-auto max-w-7xl w-11/12">{children}</div>
           </Providers>
         </SessionWrapper>
       </body>

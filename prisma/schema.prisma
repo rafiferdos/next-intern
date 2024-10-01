@@ -23,7 +23,6 @@ model User {
   name  String?
   posts Post[]
 }
-
 model Post {
   id             Int         @id @default(autoincrement())
   position       String // Name of the job position
@@ -37,7 +36,6 @@ model Post {
   companyName    String // Name of the company offering the job
   applicationUrl String? // Link to the application page (if any)
   applicants     Applicant[] // Relationship with applicants who applied for the job
-
   // Optional fields
   skillsRequired String[] // List of required skills for the job
   status         JobStatus @default(ACTIVE) // ACTIVE, CLOSED, etc.
