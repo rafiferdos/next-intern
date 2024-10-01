@@ -56,5 +56,4 @@ enum JobType {
 enum JobStatus {
   ACTIVE
   CLOSED
-  DRAFT
 }

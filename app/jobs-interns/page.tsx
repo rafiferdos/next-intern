@@ -4,18 +4,17 @@ import { fetchAllPosts } from "@/lib/fetchAllPosts";
 import { useQuery } from "@tanstack/react-query";
 import { Spinner } from "@nextui-org/spinner";
 
-interface JobType {
-  id: number;
-  name: string;
-  createdAt: Date;
-  updatedAt: Date;
+enum JobType {
+  FULL_TIME = "FULL_TIME",
+  PART_TIME = "PART_TIME",
+  INTERNSHIP = "INTERNSHIP",
+  CONTRACT = "CONTRACT",
+  FREELANCE = "FREELANCE",
 }
 
-interface JobStatus {
-  id: number;
-  name: string;
-  createdAt: Date;
-  updatedAt: Date;
+enum JobStatus {
+    ACTIVE = "ACTIVE",
+    CLOSED = "CLOSED",
 }
 
 interface Applicant {
