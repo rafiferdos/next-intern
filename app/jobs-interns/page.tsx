@@ -13,8 +13,8 @@ enum JobType {
 }
 
 enum JobStatus {
-    ACTIVE = "ACTIVE",
-    CLOSED = "CLOSED",
+  ACTIVE = "ACTIVE",
+  CLOSED = "CLOSED",
 }
 
 interface Applicant {
@@ -22,11 +22,9 @@ interface Applicant {
   name: string;
   email: string;
   resume: string;
-  createdAt: Date;
-  updatedAt: Date;
-  userId?: number;
-  jobId?: number;
-  Job?: Job;
+  appliedAt: Date;
+  postID: number;
+  post: Post;
 }
 
 interface User {
@@ -39,7 +37,7 @@ interface User {
   isAdmin: boolean;
 }
 
-interface Job {
+interface Post {
   id: number;
   position: string;
   description: string;
@@ -58,10 +56,8 @@ interface Job {
   User?: User;
 }
 
-// Assuming JobType, JobStatus, Applicant, and User are defined elsewhere in your codebase
-
 const JobsInterns = () => {
-  const { data, error, isLoading } = useQuery<Job[]>({
+  const { data, error, isLoading } = useQuery<Post[]>({
     queryKey: ["jobs-interns"],
     queryFn: fetchAllPosts,
   });
@@ -76,10 +72,10 @@ const JobsInterns = () => {
 
   return (
     <div>
-      {data?.map((job: Job) => (
-        <div key={job.id}>
-          <h2>{job.position}</h2>
-          <p>{job.description}</p>
+      {data?.map((post: Post) => (
+        <div key={post.id}>
+          <h2>{post.position}</h2>
+          <p>{post.description}</p>
         </div>
       ))}
     </div>
