@@ -64,7 +64,7 @@ const JobsInterns = () => {
 
   if (isLoading)
     return (
-      <div className="flex items-center justify-center gap-4">
+      <div className="flex items-center justify-center gap-4 h-96">
         <Spinner color="success" />
       </div>
     );

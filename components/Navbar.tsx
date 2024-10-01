@@ -31,7 +31,13 @@ const Nav = () => {
   const { theme, setTheme } = useTheme();
   const { data: session } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuItems = ["Interns", "Features", "Contact Us"];
+  const menuItems = ["Jobs Interns", "Features", "Contact Us"];
+
+  const currentPath = typeof window !== "undefined" ? window.location.pathname : "";
+  // if currentPath matches any of the menu items, set the menu color to primary
+  const currentMenuItem = menuItems.find((item) =>
+    currentPath.includes(item.toLowerCase().replace(" ", "_"))
+  );
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme || "light");
@@ -50,21 +56,22 @@ const Nav = () => {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden gap-4 sm:flex" justify="center">
-        <NavbarItem>
-          <Link color="foreground" href="/jobs-interns">
-            Interns
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="/features">
-            Features
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="/contact_us">
-            Contact Us
-          </Link>
-        </NavbarItem>
+        {menuItems.map((item, index) => (
+          <NavbarItem key={`${item}-${index}`}>
+            <Link
+              color={
+                item === currentMenuItem
+                  ? "primary"
+                  : index === menuItems.length - 1
+                  ? "danger"
+                  : "foreground"
+              }
+              href={`/${item.toLowerCase().replace(" ", "_")}`}
+            >
+              {item}
+            </Link>
+          </NavbarItem>
+        ))}
       </NavbarContent>
 
       <NavbarContent justify="end">
