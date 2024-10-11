@@ -1,9 +1,10 @@
+import { Button } from '@nextui-org/button';
 import React from 'react';
 
 const contact_us = () => {
     return (
         <div>
-            Contact
+            <Button color='danger'>Contact Us</Button>
         </div>
     );
 };
