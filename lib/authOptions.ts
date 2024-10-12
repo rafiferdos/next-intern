@@ -1,9 +1,7 @@
 import GoogleProvider from 'next-auth/providers/google'
 import { NextAuthOptions } from "next-auth"
 import GithubProvider from "next-auth/providers/github"
-import { CredentialsProvider } from 'next-auth/providers/credentials'
-// import bcrypt from 'bcryptjs'
-// import dbConnect from '@/lib/dbConnect'
+import Credentials from 'next-auth/providers/credentials'
 
 export const authOptions: NextAuthOptions = ({
     providers: [
@@ -15,22 +13,23 @@ export const authOptions: NextAuthOptions = ({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
         }),
-        CredentialsProvider({
-            id: 'credentials',
-            name: 'Credentials',
-            credentials: {
-                username: { label: "Email", type: "text" },
-                password: { label: "Password", type: "password" }
-            },
-            async authorize(credentials: any) : Promise<any> {
-                await dbConnect();
-                try {
+            Credentials({
+                credentials: {
+                    async authorize(credentials) {
+                        let user = null
 
+                        user = {
+                            id: '1', 
+                            name: 'John Doe',
+                            email: 'rafi@gmail.com'
+                        }
+                        if (!user) { 
+                            console.log('Invalid credentials')
+                            return null
+                        }
+                        return user
+                    }
                 }
-                catch (err : any) {
-                    throw new Error(err)
-                }
-            }
-        })
+            })
     ]
 })
