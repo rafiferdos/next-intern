@@ -58,64 +58,54 @@ const Form = ({ type }: Props) => {
     }
   };
   return (
-      <form
-        className="flex flex-col space-y-4 pb-6 sm:px-16"
-        onSubmit={handleFormSubmit}
-      >
-        <div>
-          <Input
-            type="email"
-            name="email"
-            label="Enter Your Email"
-            labelPlacement="outside"
-            required
-          />
-        </div>
-        <div>
-          <Input
-            type="password"
-            name="password"
-            label="Enter Your Password"
-            labelPlacement="outside"
-            required
-          />
-        </div>
-        <Spacer y={4} />
-        {/* <Button type="submit" disabled={isLoading}>
-          {isLoading ? (
-            <RotateCwIcon className="animate-spin" />
-          ) : (
-            <span>{type === "login" ? "Login" : "Register"}</span>
-          )}
-        </Button> */}
-        {
-          !isLoading ? (
-            <Button color="success" variant="flat">
-              {type === "login" ? "Login" : "Register"}
-            </Button>
-          ):
-          (
-            <Spinner color="success" />
-          )
-        }
-        {type === "login" ? (
-          <p className="text-center text-sm text-gray-500">
-            Don&apos;t have an account?{" "}
-            <Link href={"/register"} className="  font-bold text-gray-700">
-              Register
-            </Link>{" "}
-            for free
-          </p>
+    <form
+      className="flex flex-col space-y-4 pb-6 sm:px-16"
+      onSubmit={handleFormSubmit}
+    >
+      <div>
+        <Input
+          type="email"
+          name="email"
+          label="Enter Your Email"
+          labelPlacement="outside"
+          required
+        />
+      </div>
+      <div>
+        <Input
+          type="password"
+          name="password"
+          label="Enter Your Password"
+          labelPlacement="outside"
+          required
+        />
+      </div>
+      <Spacer y={4} />
+      <Button color="success" variant="flat" disabled={isLoading} type="submit">
+        {isLoading ? (
+          <Spinner color="success" />
         ) : (
-          <p className="text-center text-sm text-gray-500">
-            Already have an account?{" "}
-            <Link href={"/login"} className=" font-bold text-gray-700">
-              Login
-            </Link>{" "}
-            instead
-          </p>
+          <span>{type === "login" ? "Login" : "Register"}</span>
         )}
-      </form>
+      </Button>
+      {type === "login" ? (
+        <p className="text-center text-sm text-gray-500">
+          Don&apos;t have an account?{" "}
+          <Link href={"/register"} className="  font-bold text-gray-700">
+            Register
+          </Link>{" "}
+          for free
+        </p>
+      ) : (
+        <p className="text-center text-sm text-gray-500">
+          Already have an account?{" "}
+          <Link href={"/login"} className=" font-bold text-gray-700">
+            Login
+          </Link>{" "}
+          instead
+        </p>
+      )}
+    </form>
   );
 };
 export default Form;
