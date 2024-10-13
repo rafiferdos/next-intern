@@ -1,4 +1,5 @@
 import { Button } from "@nextui-org/button";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Next Intern | Features",
@@ -9,7 +10,7 @@ const page = () => {
     return (
         <div>
             <h1>Features Page</h1>
-            <Button color="secondary" variant="flat">View featues</Button>
+            <Button color="secondary" variant="shadow">View featues</Button>
         </div>
     );
 };
