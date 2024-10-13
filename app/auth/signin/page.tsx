@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardBody, CardHeader, CardFooter } from "@nextui-org/card";
+import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import { Github as GithubIcon} from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -66,7 +66,7 @@ export default function SignIn() {
                                 {...form.register("password")}
                             />
                             {form.formState.errors.password && (
-                                <Text color="error">{form.formState.errors.password.message}</Text>
+                                <h3 color="error">{form.formState.errors.password.message}</h3>
                             )}
                         </div>
                         {form.formState.isSubmitting && <Spinner color="success" />}
