@@ -4,6 +4,7 @@ import "./globals.css";
 import Nav from "@/components/Navbar";
 import SessionWrapper from "@/components/SessionWrapper";
 import { Providers } from "./providers";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,7 +35,10 @@ export default function RootLayout({
         <SessionWrapper>
           <Providers>
             <Nav />
-            <div className="mx-auto max-w-7xl w-11/12">{children}</div>
+            <div className="mx-auto max-w-7xl w-11/12">
+              {children}
+              <Toaster />
+            </div>
           </Providers>
         </SessionWrapper>
       </body>
