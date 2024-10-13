@@ -18,9 +18,10 @@ const Form = ({ type }: Props) => {
   const router = useRouter();
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (type === "register") {
-      setIsLoading(true);
-      const res = await fetch("/api/auth/register", {
+    setIsLoading(true);
+  
+    try {
+      const res = await fetch(type === "register" ? "/api/auth/register" : "/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,38 +31,21 @@ const Form = ({ type }: Props) => {
           password: e.currentTarget.password.value,
         }),
       });
+  
       if (res.ok) {
-        toast.success("user created successfully redirecting to");
-        setIsLoading(false);
+        toast.success("User created successfully, redirecting...");
         setTimeout(() => {
           router.push("/login");
         }, 2000);
       } else {
-        let data;
-        try {
-          data = await res.json();
-        } catch (error) {
-          console.error('Failed to parse JSON:', error);
-          data = {}; // Default to an empty object if parsing fails
-        }
-        const { error } = data;
-        setIsLoading(false);
+        const errorResponse = await res.text();
+        const { error } = errorResponse ? JSON.parse(errorResponse) : { error: "An unknown error occurred" };
         toast.error(error);
       }
-    } else {
-      setIsLoading(true);
-      const res = await signIn("credentials", {
-        email: e.currentTarget.email.value,
-        password: e.currentTarget.password.value,
-        redirect: false,
-      });
-      if (res?.ok) {
-        setIsLoading(false);
-        router.push("/protected");
-      } else {
-        const error = res?.error;
-        toast.error(error!);
-      }
+    } catch (error) {
+      toast.error(`Failed to submit form: ${error instanceof Error ? error.message : String(error)}`);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
