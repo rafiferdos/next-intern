@@ -90,7 +90,9 @@ const Form = ({ type }: Props) => {
         </Button> */}
         {
           !isLoading ? (
-            <Button color="success" variant="flat">Login</Button>
+            <Button color="success" variant="flat">
+              {type === "login" ? "Login" : "Register"}
+            </Button>
           ):
           (
             <Spinner color="success" />
