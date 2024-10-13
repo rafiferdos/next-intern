@@ -1,15 +1,18 @@
 "use client";
 
-import { Card, CardBody, CardHeader, CardFooter, Text, Input, Button, Spacer } from "@nextui-org/react";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { Card, CardBody, CardHeader, CardFooter } from "@nextui-org/card";
+import { Github as GithubIcon} from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { signInSchema } from "@/lib/zod";
-import LoadingButton from "@/components/loading-button";
 import { handleCredentialsSignin, handleGithubSignin } from "@/app/actions/authActions";
 import { useState } from "react";
 import ErrorMessage from "@/components/error-message";
+import { Input } from "@nextui-org/input";
+import { Spinner } from "@nextui-org/spinner";
+import { Spacer } from "@nextui-org/spacer";
+import { Button } from "@nextui-org/button";
 
 export default function SignIn() {
     const [globalError, setGlobalError] = useState<string>("");
@@ -28,17 +31,17 @@ export default function SignIn() {
                 setGlobalError(result.message);
             }
         } catch (error) {
-            console.log("An unexpected error occurred. Please try again.");
+            console.log("An unexpected error occurred. Please try again.", error);
         }
     };
 
     return (
         <div className="flex items-center justify-center min-h-screen p-4">
-            <Card css={{ mw: "400px" }}>
+            <Card>
                 <CardHeader>
-                    <Text h3 className="text-center">
+                    <h3 className="text-center">
                         Welcome Back
-                    </Text>
+                    </h3>
                 </CardHeader>
                 <CardBody>
                     {globalError && <ErrorMessage error={globalError} />}
@@ -52,7 +55,7 @@ export default function SignIn() {
                                 {...form.register("email")}
                             />
                             {form.formState.errors.email && (
-                                <Text color="error">{form.formState.errors.email.message}</Text>
+                                <h5 color="error">{form.formState.errors.email.message}</h5>
                             )}
                         </div>
                         <div>
@@ -66,16 +69,16 @@ export default function SignIn() {
                                 <Text color="error">{form.formState.errors.password.message}</Text>
                             )}
                         </div>
-                        <LoadingButton pending={form.formState.isSubmitting} />
+                        {form.formState.isSubmitting && <Spinner color="success" />}
                     </form>
                     <Spacer y={1} />
-                    <Text className="text-center" size={14} color="gray">
+                    <h3 className="text-center text-xl" color="gray">
                         or
-                    </Text>
+                    </h3>
                     <Spacer y={1} />
                     <form className="w-full" action={handleGithubSignin}>
-                        <Button variant="outlined" className="w-full" type="submit">
-                            <GitHubLogoIcon className="h-4 w-4 mr-2" />
+                        <Button variant="bordered" className="w-full" type="submit">
+                            <GithubIcon className="h-4 w-4 mr-2" />
                             Sign in with GitHub
                         </Button>
                     </form>
