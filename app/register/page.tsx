@@ -4,7 +4,7 @@ import Form from "@/components/Form";
 
 const RegisterPage = () => {
   return (
-    <div className="flex h-screen justify-center items-center w-screen bg-gray-100">
+    <div className="flex h-screen justify-center items-center bg-gray-100">
       <div className="z-10 max-w-md w-full overflow-hidden rounded-2xl border-gray-200 shadow-xl">
         <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 px-4 py-6 pb-6 pt-8 text-center sm:px-16">
           <Link href={"/"}>
