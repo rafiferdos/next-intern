@@ -1,4 +1,8 @@
 "use client";
+import { Button } from "@nextui-org/button";
+import { Input } from "@nextui-org/input";
+import { Spacer } from "@nextui-org/spacer";
+import { Spinner } from "@nextui-org/spinner";
 import { RotateCwIcon } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
@@ -55,69 +59,62 @@ const Form = ({ type }: Props) => {
     }
   };
   return (
-    <form
-      className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 sm:px-16"
-      onSubmit={handleFormSubmit}
-    >
-      <div>
-        <label
-          htmlFor="email"
-          className="text-xs block text-gray-600 uppercase"
-        >
-          Email Address
-        </label>
-        <input
-          type="email"
-          name="email"
-          required
-          placeholder="me@example.com"
-          autoComplete="off"
-          className="text-black mt-1 block w-full appearance-none rounded-md border-gray-200 border px-3 py-2 placeholder:text-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="password"
-          className="text-xs block text-gray-600 uppercase"
-        >
-          Password
-        </label>
-        <input
-          type="password"
-          name="password"
-          placeholder="password"
-          required
-          className="text-black mt-1 block w-full appearance-none rounded-md border-gray-200 border px-3 py-2 placeholder:text-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm"
-        />
-      </div>
-      <button
-        className="flex h-10 w-full items-center justify-center rounded-md border text-sm transition-all focus:outline-none border-black bg-black text-white hover:bg-gray-900"
-        disabled={isLoading}
+      <form
+        className="flex flex-col space-y-4 pb-6 sm:px-16"
+        onSubmit={handleFormSubmit}
       >
-        {isLoading ? (
-          <RotateCwIcon className="animate-spin" />
+        <div>
+          <Input
+            type="email"
+            name="email"
+            label="Enter Your Email"
+            labelPlacement="outside"
+            required
+          />
+        </div>
+        <div>
+          <Input
+            type="password"
+            name="password"
+            label="Enter Your Password"
+            labelPlacement="outside"
+            required
+          />
+        </div>
+        <Spacer y={4} />
+        {/* <Button type="submit" disabled={isLoading}>
+          {isLoading ? (
+            <RotateCwIcon className="animate-spin" />
+          ) : (
+            <span>{type === "login" ? "Login" : "Register"}</span>
+          )}
+        </Button> */}
+        {
+          !isLoading ? (
+            <Button color="success" variant="flat">Login</Button>
+          ):
+          (
+            <Spinner color="success" />
+          )
+        }
+        {type === "login" ? (
+          <p className="text-center text-sm text-gray-500">
+            Don&apos;t have an account?{" "}
+            <Link href={"/register"} className="  font-bold text-gray-700">
+              Register
+            </Link>{" "}
+            for free
+          </p>
         ) : (
-          <span>{type === "login" ? "Login" : "Register"}</span>
+          <p className="text-center text-sm text-gray-500">
+            Already have an account?{" "}
+            <Link href={"/login"} className=" font-bold text-gray-700">
+              Login
+            </Link>{" "}
+            instead
+          </p>
         )}
-      </button>
-      {type === "login" ? (
-        <p className="text-center text-sm text-gray-600">
-          Don&apos;t have an account?{" "}
-          <Link href={"/register"} className="  font-semibold text-gray-800">
-            Register
-          </Link>{" "}
-          for free
-        </p>
-      ) : (
-        <p className="text-center text-sm text-gray-600">
-          Already have an account?{" "}
-          <Link href={"/login"} className=" font-semibold text-gray-800">
-            Login
-          </Link>{" "}
-          instead
-        </p>
-      )}
-    </form>
+      </form>
   );
 };
 export default Form;
