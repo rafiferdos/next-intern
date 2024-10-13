@@ -37,7 +37,14 @@ const Form = ({ type }: Props) => {
           router.push("/login");
         }, 2000);
       } else {
-        const { error } = await res.json();
+        let data;
+        try {
+          data = await res.json();
+        } catch (error) {
+          console.error('Failed to parse JSON:', error);
+          data = {}; // Default to an empty object if parsing fails
+        }
+        const { error } = data;
         setIsLoading(false);
         toast.error(error);
       }
