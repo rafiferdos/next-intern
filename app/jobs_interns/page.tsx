@@ -68,8 +68,9 @@ const JobsInterns = () => {
         <Spinner color="success" />
       </div>
     );
-  if (error instanceof Error) return <p>Error: {error.message}</p>;
 
+  if (error instanceof Error) return <p>Error: {error.message}</p>;
+    console.log(data);
   return (
     <div>
       {data?.map((post: Post) => (
