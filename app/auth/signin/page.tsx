@@ -4,7 +4,6 @@ import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import { Github as GithubIcon} from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { signInSchema } from "@/lib/zod";
 import { handleCredentialsSignin, handleGithubSignin } from "@/app/actions/authActions";
 import { useState } from "react";
