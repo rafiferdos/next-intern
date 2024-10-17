@@ -7,6 +7,7 @@ import Credentials from 'next-auth/providers/credentials';
 
 export const authOptions: AuthOptions = {
 	adapter: PrismaAdapter(prisma),
+	secret: process.env.NEXTAUTH_SECRET,
 	providers: [
 		Credentials({
 			credentials: {
