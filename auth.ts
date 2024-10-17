@@ -1,10 +1,11 @@
 import { GoogleProvider } from 'next-auth/providers/google';
-import { bcrypt } from "bcryptjs";
+import bcrypt from "bcryptjs";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
 import { db } from './db';
+import { saltAndHashPassword } from './utils/helper';
 
 export const {
   handlers: { GET, POST },
@@ -43,6 +44,7 @@ export const {
           const email = credentials.email as string;
           const hash = saltAndHashPassword(credentials.password);
   
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           let user: any = await db.user.findUnique({
             where: {
               email,
@@ -53,7 +55,7 @@ export const {
             user = await db.user.create({
               data: {
                 email,
-                hashedPassword: hash,
+                password: hash,
               },
             });
           } else {
