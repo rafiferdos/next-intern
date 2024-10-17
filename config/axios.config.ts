@@ -1,6 +1,6 @@
 import axios from "axios";
 import { cookies } from "next/headers";
-import envConfig from "./envConfig";
+import envConfig from "./engConfig";
 import { getNewAccessToken } from "@/services/AuthService";
 
 
@@ -14,6 +14,9 @@ axiosInstance.interceptors.request.use(
     const accessToken = cookieStore.get("accessToken")?.value;
 
     if (accessToken) {
+      if (!config.headers) {
+        config.headers = {};
+      }
       config.headers.Authorization = accessToken;
     }
 
