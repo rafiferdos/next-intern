@@ -43,6 +43,8 @@ const Nav = () => {
     document.documentElement.setAttribute("data-theme", theme || "light");
   }, [theme]);
 
+  console.log(session);
+
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="xl" isBordered>
       <NavbarContent>

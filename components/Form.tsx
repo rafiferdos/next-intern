@@ -1,101 +1,63 @@
-"use client";
-import { Button } from "@nextui-org/button";
-import { Input } from "@nextui-org/input";
-import { Spacer } from "@nextui-org/spacer";
-import { Spinner } from "@nextui-org/spinner";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
-import toast from "react-hot-toast";
+'use client'
+import React, { useState } from 'react';
+import { signIn } from 'next-auth/react';
+import { Button } from '@nextui-org/button';
 
-interface Props {
-  type: "register" | "login";
-}
+const LoginForm = () => {
+  const [error, setError] = useState<string | null>(null);
 
-const Form = ({ type }: Props) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
-  const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
-  
-    try {
-      const res = await fetch(type === "register" ? "/api/auth/register" : "/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: e.currentTarget.email.value,
-          password: e.currentTarget.password.value,
-        }),
-      });
-  
-      if (res.ok) {
-        toast.success("User created successfully, redirecting...");
-        setTimeout(() => {
-          router.push("/login");
-        }, 2000);
-      } else {
-        const errorResponse = await res.text();
-        const { error } = errorResponse ? JSON.parse(errorResponse) : { error: "An unknown error occurred" };
-        toast.error(error);
-      }
-    } catch (error) {
-      toast.error(`Failed to submit form: ${error instanceof Error ? error.message : String(error)}`);
-    } finally {
-      setIsLoading(false);
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget as HTMLFormElement);
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    const result = await signIn('credentials', {
+      redirect: false, // We handle the redirection manually
+      email,
+      password,
+    });
+
+    if (result?.error) {
+      setError(result.error); // Handle error
+    } else {
+      window.location.href = '/protected'; // Redirect after successful login
     }
   };
+
   return (
-    <form
-      className="flex flex-col space-y-4 pb-6 sm:px-16"
-      onSubmit={handleFormSubmit}
-    >
-      <div>
-        <Input
-          type="email"
-          name="email"
-          label="Enter Your Email"
-          labelPlacement="outside"
-          required
-        />
-      </div>
-      <div>
-        <Input
-          type="password"
-          name="password"
-          label="Enter Your Password"
-          labelPlacement="outside"
-          required
-        />
-      </div>
-      <Spacer y={4} />
-      <Button color="success" variant="flat" disabled={isLoading} type="submit">
-        {isLoading ? (
-          <Spinner color="success" />
-        ) : (
-          <span>{type === "login" ? "Login" : "Register"}</span>
-        )}
-      </Button>
-      {type === "login" ? (
-        <p className="text-center text-sm text-gray-500">
-          Don&apos;t have an account?{" "}
-          <Link href={"/register"} className="  font-bold text-gray-700">
-            Register
-          </Link>{" "}
-          for free
-        </p>
-      ) : (
-        <p className="text-center text-sm text-gray-500">
-          Already have an account?{" "}
-          <Link href={"/login"} className=" font-bold text-gray-700">
-            Login
-          </Link>{" "}
-          instead
-        </p>
-      )}
-    </form>
+    <div>
+      {error && <p className="text-red-500">{error}</p>}
+      <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-200">Email</label>
+          <input
+            type="email"
+            placeholder="Email"
+            id="Email"
+            name="email"
+            className="mt-1 w-full px-4 p-2 h-10 rounded-md border border-gray-200 bg-white text-sm text-gray-700"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-200">Password</label>
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            id="password"
+            className="mt-1 w-full px-4 p-2 h-10 rounded-md border border-gray-200 bg-white text-sm text-gray-700"
+          />
+        </div>
+        <div className="mt-4">
+          <Button type="submit" color="success" variant="light">
+            Submit
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 };
-export default Form;
+
+export default LoginForm;

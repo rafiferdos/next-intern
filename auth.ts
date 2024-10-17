@@ -7,16 +7,12 @@ import Github from "next-auth/providers/github";
 import { db } from './db';
 import { saltAndHashPassword } from './utils/helper';
 
-export const {
-  handlers: { GET, POST },
-  signIn,
-  signOut,
-  auth,
-} = NextAuth({
-    adapter: PrismaAdapter(db),
-    session: {
-        strategy: "jwt",
-    },
+export default NextAuth({
+  debug: true,
+  adapter: PrismaAdapter(db),
+  session: {
+      strategy: "jwt",
+  },
   providers: [
     Github({
         clientId: process.env.GITHUB_ID as string,
@@ -40,17 +36,15 @@ export const {
           if (!credentials || !credentials.email || !credentials.password) {
             return null;
           }
-  
           const email = credentials.email as string;
           const hash = saltAndHashPassword(credentials.password);
-  
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          let user: any = await db.user.findUnique({
+
+          let user = await db.user.findUnique({
             where: {
               email,
             },
           });
-  
+
           if (!user) {
             user = await db.user.create({
               data: {
@@ -59,17 +53,17 @@ export const {
               },
             });
           } else {
-            const isMatch = bcrypt.compareSync(
-              credentials.password as string,
-              user.hashedPassword
-            );
+            const isMatch = bcrypt.compareSync(credentials.password as string, user.password);
             if (!isMatch) {
               throw new Error("Incorrect password.");
             }
           }
-  
-          return user;
+
+          return {
+            ...user,
+            id: user.id.toString(), // Ensure id is a string
+          };
         },
-      }),
+    }),
   ],
 });
