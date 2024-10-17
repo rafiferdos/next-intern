@@ -1,4 +1,4 @@
-import { GoogleProvider } from 'next-auth/providers/google';
+import GoogleProvider from 'next-auth/providers/google';
 import bcrypt from "bcryptjs";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import NextAuth from "next-auth";
@@ -23,8 +23,8 @@ export const {
         clientSecret: process.env.GITHUB_SECRET as string,
     }),
     GoogleProvider({
-        clientId: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        clientId: process.env.GOOGLE_CLIENT_ID as string,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
     Credentials({
         name: "Credentials",

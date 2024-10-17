@@ -33,7 +33,7 @@ export const loginWithCreds = async (formData: FormData) => {
   const rawFormData = {
     email: formData.get("email"),
     password: formData.get("password"),
-    role: "ADMIN",
+    role: 'USER',
     redirectTo: "/",
   };
 
