@@ -24,6 +24,22 @@ export const {
     GoogleProvider({
         clientId: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+    Credentials({
+        async authorize(credentials) {
+            if (!credentials) {
+                return null;
+            }
+            const user = await db.user.findFirst({
+                where: {
+                    email: credentials.email,
+                },
+            });
+            if (user && (await bcrypt.compare(credentials.password, user.password))) {
+                return { id: user.id, email: user.email };
+            }
+            return null;
+        },
     })
   ],
 });
