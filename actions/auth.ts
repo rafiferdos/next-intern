@@ -1,3 +1,5 @@
+'use server'
+
 import { signIn, signOut } from "next-auth/react";
 import { revalidatePath } from "next/cache";
 
