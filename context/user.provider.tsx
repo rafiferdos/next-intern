@@ -11,7 +11,7 @@ import {
 import { getCurrentUser } from "../services/AuthService";
 import { IUser } from "@/types/IUser";
 
-const UserContext = createContext<IUserProviderValues | undefined>(undefined);
+const UserContext = createContext <IUserProviderValues | undefined>(undefined);
 
 interface IUserProviderValues {
   user: IUser | null;
