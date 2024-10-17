@@ -10,7 +10,7 @@ import { getUser } from "../UserService";
 
 export const registerUser = async (userData: Record<string, unknown>) => {
   try {
-    const { data } = await axiosInstance.post("/auth/register", userData);
+    const { data } = await axiosInstance.post<{ success: boolean; data: { accessToken: string; refreshToken: string } }>("/auth/register", userData);
 
     if (data.success) {
       cookies().set("accessToken", data?.data?.accessToken);
@@ -25,7 +25,7 @@ export const registerUser = async (userData: Record<string, unknown>) => {
 
 export const loginUser = async (userData: Record<string, unknown>) => {
   try {
-    const { data } = await axiosInstance.post("/auth/login", userData);
+    const { data } = await axiosInstance.post<{ success: boolean; data: { accessToken: string; refreshToken: string } }>("/auth/login", userData);
 
     if (data.success) {
       cookies().set("accessToken", data?.data?.accessToken);
@@ -40,10 +40,7 @@ export const loginUser = async (userData: Record<string, unknown>) => {
 
 export const forgetPassword = async (userData: Record<string, unknown>) => {
   try {
-    const { data } = await axiosInstance.post(
-      "/auth/forget-password",
-      userData
-    );
+    const { data } = await axiosInstance.post<{ success: boolean }>("/auth/forget-password", userData);
 
     return data;
   } catch (error: any) {
@@ -59,9 +56,10 @@ export const resetPassword = async (userData: Record<string, unknown>) => {
 
     const { data } = await axiosInstance.post("/auth/reset-password", newData);
 
-    return data;
-  } catch (error: any) {
-    throw new Error(error);
+      return data;
+    } catch (error: any) {
+      throw new Error(error);
+    }
   }
 };
 

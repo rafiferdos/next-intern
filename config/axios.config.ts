@@ -36,7 +36,7 @@ axiosInstance.interceptors.response.use(
 
     if (error?.response?.status === 401 && !config?.sent) {
       config.sent = true;
-      const res = await getNewAccessToken();
+      const res = await getNewAccessToken() as { data: { accessToken: string } };
       const accessToken = res.data.accessToken;
 
       config.headers["Authorization"] = accessToken;
