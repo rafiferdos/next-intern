@@ -61,7 +61,7 @@ export const resetPassword = async (userData: Record<string, unknown>) => {
       throw new Error(error);
     }
   }
-};
+
 
 export const logout = () => {
   cookies().delete("accessToken");
