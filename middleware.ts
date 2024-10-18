@@ -1,25 +1,3 @@
-// import { NextResponse } from "next/server";
-import { NextRequest, NextResponse } from "next/server";
+export { default } from "next-auth/middleware";
 
-const AuthRoutes = [
-  "/login",
-  "/register",
-  "/forget-password",
-  "/reset-password",
-];
-
-export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-
-  if (pathname.match(/^\/contact_us/)) {
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
-
-  if (AuthRoutes.includes(pathname)) {
-    return NextResponse.next();
-  }
-}
-
-export const config = {
-  matcher: ["/login", "/register", "/contact_us"],
-};
+export const config = { matcher: ["/contact_us"] };

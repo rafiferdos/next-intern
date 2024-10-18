@@ -20,7 +20,7 @@ import {
   NavbarMenuToggle,
 } from "@nextui-org/navbar";
 import { Switch } from "@nextui-org/switch";
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { SunIcon } from "./SunIcon";
@@ -33,7 +33,8 @@ const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuItems = ["Jobs Interns", "Features", "Contact Us"];
 
-  const currentPath = typeof window !== "undefined" ? window.location.pathname : "";
+  const currentPath =
+    typeof window !== "undefined" ? window.location.pathname : "";
   // if currentPath matches any of the menu items, set the menu color to primary
   const currentMenuItem = menuItems.find((item) =>
     currentPath.includes(item.toLowerCase().replace(" ", "_"))
@@ -52,7 +53,7 @@ const Nav = () => {
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden"
         />
-        <NavbarBrand as={Link} href={'/'}>
+        <NavbarBrand as={Link} href={"/"}>
           <MainLogo />
           <p className="font-bold text-inherit">Next Intern</p>
         </NavbarBrand>
@@ -90,7 +91,12 @@ const Nav = () => {
         {!session ? (
           <>
             <NavbarItem>
-              <Button as={Link} color="success" href="login" variant="light">
+              <Button
+                onClick={() => signIn()}
+                color="success"
+                href="login"
+                variant="light"
+              >
                 Sign In
               </Button>
             </NavbarItem>
@@ -157,7 +163,11 @@ const Nav = () => {
               <DropdownItem key="help_and_feedback">
                 Help & Feedback
               </DropdownItem>
-              <DropdownItem key="logout" color="danger">
+              <DropdownItem
+                onClick={() => signOut()}
+                key="logout"
+                color="danger"
+              >
                 Log Out
               </DropdownItem>
             </DropdownMenu>
