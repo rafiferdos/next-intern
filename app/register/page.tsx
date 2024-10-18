@@ -1,6 +1,6 @@
 import { UserPlusIcon } from "lucide-react";
 import Link from "next/link";
-import Form from "@/components/Form";
+// import Form from "@/components/Form";
 import { Divider } from "@nextui-org/divider";
 
 const RegisterPage = () => {
@@ -17,7 +17,7 @@ const RegisterPage = () => {
           </p>
         </div>
         <Divider className="my-4" />
-        <Form type="register" />
+        {/* <Form type="register" /> */}
       </div>
     </div>
   );
