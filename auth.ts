@@ -7,7 +7,12 @@ import bcrypt from "bcryptjs";
 import { db } from "./db";
 import { saltAndHashPassword } from "./utils/helper";
 
-export default NextAuth({
+export const {
+  handlers: { GET, POST },
+  signIn,
+  signOut,
+  auth,
+} = NextAuth({
   adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
   providers: [
