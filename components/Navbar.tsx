@@ -45,6 +45,8 @@ const Nav = () => {
   }, [theme]);
 
   console.log(session);
+  console.log("User in authorize:", session?.user);
+  console.log("Session user:", session?.user);
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="xl" isBordered>

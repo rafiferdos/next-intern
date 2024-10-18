@@ -8,20 +8,22 @@ datasource db {
 }
 
 model Applicant {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid()) // Change to String
   name      String
   email     String   @unique
-  resume    String?  // Optional link to the resume
-  appliedAt DateTime @default(now())  // Date and time when the application was submitted
+  resume    String? // Optional link to the resume
+  appliedAt DateTime @default(now()) // Date and time when the application was submitted
   postId    Int
   post      Post     @relation(fields: [postId], references: [id])
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
-  password String
-  role     String   @default("USER")
+  id       String    @id @default(uuid()) // Change to String
+  name     String?
+  image    String?
+  email    String    @unique
+  password String?
+  role     String    @default("USER")
   posts    Post[]
   accounts Account[]
   sessions Session[]
@@ -29,22 +31,22 @@ model User {
 
 model Post {
   id             Int         @id @default(autoincrement())
-  position       String       // Name of the job position
-  description    String       // Job description
-  createdAt      DateTime     @default(now())  // Date and time when the post was created
-  updatedAt      DateTime     @updatedAt       // Automatically updates the time when the post is edited
-  location       String       // Job location (e.g., remote, hybrid, onsite)
-  jobType        JobType      // Full-time, Part-time, Internship, etc.
-  salary         Float?       // Optional field for salary
-  hiringManager  String       // Name of the hiring manager
-  companyName    String       // Name of the company offering the job
-  applicationUrl String?      // Link to the application page (if any)
-  applicants     Applicant[]  // Relationship with applicants who applied for the job
+  position       String // Name of the job position
+  description    String // Job description
+  createdAt      DateTime    @default(now()) // Date and time when the post was created
+  updatedAt      DateTime    @updatedAt // Automatically updates the time when the post is edited
+  location       String // Job location (e.g., remote, hybrid, onsite)
+  jobType        JobType // Full-time, Part-time, Internship, etc.
+  salary         Float? // Optional field for salary
+  hiringManager  String // Name of the hiring manager
+  companyName    String // Name of the company offering the job
+  applicationUrl String? // Link to the application page (if any)
+  applicants     Applicant[] // Relationship with applicants who applied for the job
   // Optional fields
-  skillsRequired String[]     // List of required skills for the job
-  status         JobStatus    @default(ACTIVE)  // ACTIVE, CLOSED, etc.
-  User           User?        @relation(fields: [userId], references: [id])
-  userId         Int?
+  skillsRequired String[] // List of required skills for the job
+  status         JobStatus   @default(ACTIVE) // ACTIVE, CLOSED, etc.
+  User           User?       @relation(fields: [userId], references: [id])
+  userId         String?
 }
 
 enum JobType {
@@ -63,18 +65,18 @@ enum JobStatus {
 // NextAuth models
 
 model Account {
-  id                 String   @id @default(cuid())
-  userId             Int
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  // Optional refresh token
-  access_token       String?  // Optional access token
-  expires_at         Int?     // Optional expiration time
-  token_type         String?  // Optional token type
-  scope              String?  // Optional scope
-  id_token           String?  // Optional ID token
-  session_state      String?  // Optional session state
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? // Optional refresh token
+  access_token      String? // Optional access token
+  expires_at        Int? // Optional expiration time
+  token_type        String? // Optional token type
+  scope             String? // Optional scope
+  id_token          String? // Optional ID token
+  session_state     String? // Optional session state
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -84,7 +86,7 @@ model Account {
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
-  userId       Int
+  userId       String
   expires      DateTime
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -92,7 +94,7 @@ model Session {
 
 model VerificationToken {
   identifier String
-  token      String  @unique
+  token      String   @unique
   expires    DateTime
 
   @@id([identifier, token])
