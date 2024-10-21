@@ -20,7 +20,7 @@ import {
   NavbarMenuToggle,
 } from "@nextui-org/navbar";
 import { Switch } from "@nextui-org/switch";
-import { signIn, signOut, useSession } from "next-auth/react";
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { SunIcon } from "./SunIcon";
@@ -29,7 +29,7 @@ import { useTheme } from "next-themes";
 
 const Nav = () => {
   const { theme, setTheme } = useTheme();
-  const { data: session } = useSession();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuItems = ["Jobs Interns", "Features", "Contact Us"];
 
@@ -44,9 +44,7 @@ const Nav = () => {
     document.documentElement.setAttribute("data-theme", theme || "light");
   }, [theme]);
 
-  console.log(session);
-  console.log("User in authorize:", session?.user);
-  console.log("Session user:", session?.user);
+  const session = null;
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="xl" isBordered>
